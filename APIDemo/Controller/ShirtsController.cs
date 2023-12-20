@@ -1,4 +1,5 @@
-﻿using APIDemo.Model;
+﻿using APIDemo.Filters;
+using APIDemo.Model;
 using APIDemo.Model.Repositories;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
@@ -17,12 +18,12 @@ namespace APIDemo.Controller
         }
 
         [HttpGet("{id}")]
+        [Shirt_ValidateShirtIdFilter]
         public IActionResult GetShirtById(int id)
         {
-            var shirt = ShirtRepository.GetShirtById(id);
-            if(shirt == null) return NotFound();
-            return Ok(shirt);
+            return Ok(ShirtRepository.GetShirtById(id));
         }
+
         [HttpPost]
         public IActionResult CreateShirt([FromBody] Shirt shirt)
         {
