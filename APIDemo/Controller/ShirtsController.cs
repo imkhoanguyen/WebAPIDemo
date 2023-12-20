@@ -19,7 +19,7 @@ namespace APIDemo.Controller
             return $"Reading shirt: {id}";
         }
         [HttpPost]
-        public string CreateShirt([FromForm] Shirt shirt)
+        public string CreateShirt([FromBody] Shirt shirt)
         {
             return "Create shirt";
         }
