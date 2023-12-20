@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using APIDemo.Model;
+using Microsoft.AspNetCore.Mvc;
 
 namespace APIDemo.Controller
 {
@@ -18,7 +19,7 @@ namespace APIDemo.Controller
             return $"Reading shirt: {id}";
         }
         [HttpPost]
-        public string CreateShirt()
+        public string CreateShirt([FromForm] Shirt shirt)
         {
             return "Create shirt";
         }
