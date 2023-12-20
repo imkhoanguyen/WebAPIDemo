@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using APIDemo.Model.Validations;
+using System.ComponentModel.DataAnnotations;
 
 namespace APIDemo.Model
 {
@@ -14,7 +15,7 @@ namespace APIDemo.Model
 
         [Required]
         public string? Gender { get; set; }
-
+        [Shirt_EnsureCorrectSizing]
         public int? Size { get; set; }
         public double? Price { get; set; }
     }
