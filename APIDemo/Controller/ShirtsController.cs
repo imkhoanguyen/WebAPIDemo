@@ -10,11 +10,11 @@ namespace APIDemo.Controller
     [Route("api/[Controller]")]
     public class ShirtsController : ControllerBase
     {
-       
+
         [HttpGet]
         public IActionResult GetShirts()
         {
-            return Ok("Reading all the shirts");
+            return Ok(ShirtRepository.GetShirts());
         }
 
         [HttpGet("{id}")]
@@ -25,9 +25,13 @@ namespace APIDemo.Controller
         }
 
         [HttpPost]
+        [Shirt_ValidateCreateShirtFilter]
         public IActionResult CreateShirt([FromBody] Shirt shirt)
         {
-            return Ok("Create shirt");
+            ShirtRepository.AddShirt(shirt);
+            return CreatedAtAction(nameof(GetShirtById),
+                new { id = shirt.ShirtId },
+                shirt);
         }
         [HttpPut("{id}")]
         public IActionResult UpdateShirt(int id)
