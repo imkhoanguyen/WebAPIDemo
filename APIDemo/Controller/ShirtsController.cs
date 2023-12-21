@@ -34,9 +34,28 @@ namespace APIDemo.Controller
                 shirt);
         }
         [HttpPut("{id}")]
-        public IActionResult UpdateShirt(int id)
+        [Shirt_ValidateShirtIdFilter]
+        [Shirt_ValidateUpdateShirtFilter]
+        public IActionResult UpdateShirt(int id, Shirt shirt)
         {
-            return Ok($"Updating shirt: {id}");
+            if(id != shirt.ShirtId) return BadRequest();
+
+            // Xử lý trường hợp shirt bị xoá khi đang update
+            try
+            {
+                ShirtRepository.UpdateShirt(shirt);
+            }
+            catch
+            {
+                if(!ShirtRepository.ShirtExists(id))
+                {
+                    return NotFound();
+                }
+
+                throw;
+            }
+
+            return NoContent();
         }
         [HttpDelete("{id}")]
         public IActionResult DeleteShirt(int id)
