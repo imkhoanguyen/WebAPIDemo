@@ -1,4 +1,5 @@
-﻿using APIDemo.Filters;
+﻿using APIDemo.Filters.ActionFilters;
+using APIDemo.Filters.ExceptionFilters;
 using APIDemo.Model;
 using APIDemo.Model.Repositories;
 using Microsoft.AspNetCore.Http.HttpResults;
@@ -36,24 +37,12 @@ namespace APIDemo.Controller
         [HttpPut("{id}")]
         [Shirt_ValidateShirtIdFilter]
         [Shirt_ValidateUpdateShirtFilter]
+        [Shirt_HandleUpdateExceptionsFilter]
         public IActionResult UpdateShirt(int id, Shirt shirt)
         {
-            if(id != shirt.ShirtId) return BadRequest();
+            if (id != shirt.ShirtId) return BadRequest();
 
-            // Xử lý trường hợp shirt bị xoá khi đang update
-            try
-            {
-                ShirtRepository.UpdateShirt(shirt);
-            }
-            catch
-            {
-                if(!ShirtRepository.ShirtExists(id))
-                {
-                    return NotFound();
-                }
-
-                throw;
-            }
+            ShirtRepository.UpdateShirt(shirt);
 
             return NoContent();
         }

@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace APIDemo.Filters
+namespace APIDemo.Filters.ActionFilters
 {
     public class Shirt_ValidateCreateShirtFilterAttribute : ActionFilterAttribute
     {
