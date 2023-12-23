@@ -59,5 +59,14 @@
             shirtToUpdate.Size = shirt.Size;
 
         }
+
+        public static void DeleteShirt(int id)
+        {
+            var shirt = shirts.First(x=>x.ShirtId == id);
+            if(shirt!= null)
+            {
+                shirts.Remove(shirt);
+            }
+        }
     }
 }
